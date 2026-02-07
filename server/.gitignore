@@ -1,0 +1,6 @@
+.env.staging
+.env.production
+
+node_modules
+
+schema.sql
