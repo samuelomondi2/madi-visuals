@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import HeroImage from "../../public/hero.jpeg";
 
 export default function Hero() {
   return (
@@ -10,7 +11,7 @@ export default function Hero() {
         <div>
           <h1 className="max-w-xl text-4xl font-semibold leading-tight text-white md:text-5xl">
             Hi, I&apos;m <span className="text-[#D4AF37]">Ahmad</span> <br />
-            Brown Storyteller.
+            Brown.
           </h1>
 
           <p className="mt-6 max-w-lg text-base leading-relaxed text-neutral-400">
@@ -41,7 +42,7 @@ export default function Hero() {
         {/* Right Image */}
         <div className="relative h-[420px] md:h-[600px] md:-mr-24">
           <Image
-            src="/hero.jpeg"
+            src={HeroImage}
             alt="Madi Visuals photographer holding camera"
             fill
             priority
