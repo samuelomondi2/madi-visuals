@@ -2,6 +2,7 @@ import { useState } from 'react';
 import api from '../../lib/api';
 import { getCsrfToken } from '../../lib/csrf';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function Login() {
   const router = useRouter();
@@ -9,7 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const csrfToken = await getCsrfToken();
@@ -22,7 +23,14 @@ export default function Login() {
 
       router.push('/admin/dashboard'); // redirect after login
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      // 1. Check if it's an Axios error
+      if (axios.isAxiosError(err)) {
+        // 2. Safely access response data
+        setError(err.response?.data?.message || 'Login failed');
+      } else {
+        // 3. Handle non-Axios errors (e.g., network timeout or code errors)
+        setError('An unexpected error occurred');
+      }
     }
   };
 
