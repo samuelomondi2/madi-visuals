@@ -1,22 +1,18 @@
 const { createClient } = require('redis');
 
-const isTLS = process.env.REDIS_URL?.startsWith('rediss://');
-
 const client = createClient({
-  url: process.env.REDIS_URL || 'redis://127.0.0.1:6379',
+  url: process.env.REDIS_URL,
   socket: {
     connectTimeout: 5000,
-    ...(isTLS && {
-      tls: true,
-      rejectUnauthorized: false,
-    }),
+    tls: true,
+    rejectUnauthorized: false,
   },
 });
 
 (async () => {
   try {
     await client.connect();
-    console.log('🚀 Redis: Connected successfully');
+    console.log('🚀 Redis: Connected to Redis Cloud');
   } catch (err) {
     console.error('❌ Redis: Connection failed', err);
   }
