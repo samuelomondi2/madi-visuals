@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.FRONTEND_URL,
-  withCredentials: true,
+  baseURL: 'https://madi-visuals.onrender.com/api',
+  withCredentials: true, // REQUIRED for sessions
 });
-
 
 export default api;
