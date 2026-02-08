@@ -19,7 +19,7 @@ export default function Dashboard({ userId }: InferGetServerSidePropsType<typeof
 export const getServerSideProps: GetServerSideProps<PageProps> = async({ req }) => {
   try {
     const res = await axios.get(
-      'http://localhost:4000/api/users/me',
+      'https://madi-visuals.onrender.com/api/users/me',
       {
         headers: {
           cookie: req.headers.cookie || '',
