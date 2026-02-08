@@ -1,6 +1,12 @@
 import LogoutButton from '../components/LogoutButton';
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
+import axios from 'axios';
 
-export default function Dashboard({ userId }) {
+type PageProps = {
+  userId: string;
+};
+
+export default function Dashboard({ userId }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div>
       <h1>Dashboard</h1>
@@ -10,10 +16,8 @@ export default function Dashboard({ userId }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export const getServerSideProps: GetServerSideProps<PageProps> = async({ req }) => {
   try {
-    const axios = require('axios');
-
     const res = await axios.get(
       'http://localhost:4000/api/users/me',
       {

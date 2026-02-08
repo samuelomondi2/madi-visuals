@@ -3,9 +3,13 @@ import api from '../../lib/api';
 import { useRouter } from 'next/router';
 import LogoutButton from '@/components/LogoutButton';
 
+interface UserData {
+  userId: string;
+}
+
 export default function Dashboard() {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserData | null>(null); 
 
   useEffect(() => {
     api.get('/users/me')
