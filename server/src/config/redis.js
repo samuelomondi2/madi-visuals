@@ -1,25 +1,26 @@
-const { createClient } = require('redis');
+import { createClient } from 'redis';
+import dotenv from 'dotenv';
 
-const client = createClient({
+dotenv.config();
+
+const redis = createClient({
   url: process.env.REDIS_URL,
   socket: {
     connectTimeout: 5000,
-    tls: true,
-    rejectUnauthorized: false,
+    tls: true,              // required for Redis Labs TLS
+    rejectUnauthorized: false, // safe for Render / staging
   },
 });
 
+redis.on('error', (err) => console.error('Redis Runtime Error:', err));
+
 (async () => {
   try {
-    await client.connect();
-    console.log('🚀 Redis: Connected to Redis Cloud');
+    await redis.connect();
+    console.log('🚀 Redis: Connected successfully');
   } catch (err) {
     console.error('❌ Redis: Connection failed', err);
   }
 })();
 
-client.on('error', err => {
-  console.error('Redis Runtime Error:', err);
-});
-
-module.exports = client;
+export default redis;
